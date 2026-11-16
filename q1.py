@@ -5,7 +5,7 @@ def compute_winner(history_A, history_B):
     """
     # PLAN
     #   once we have enough history - check the last 4 results of each player
-    #   if that window is HTTH - note the turn they got it on, compare with the other
+    #   if that window is HTTH - note the turn they got it on, compare with the other player
     #   otherwise - remove the first value, add the new one. i.e. slide the window forwards
 
     # find outcome of player A
@@ -46,13 +46,29 @@ def compute_winner(history_A, history_B):
     elif counterB < counterA:
         return "B"
 
-    # only using for loops gives time complexity O(n) and space complexity O(n)
-    # this version also works for n of different sized - if we assume n is same for both, we can use on for loop
+    # only using for loops gives time complexity O(n)
+    # this version also works for n of different sizes - if we assume n is same for both, we can use one for loop
 
 def encode(history):
     """Takes as input a string representing the history of a player and returns its
     compressed representation."""
-    raise NotImplementedError("Implement this function")
+    compressed_history = ""
+    compressed_history += history[0] # this makes the loop simpler
+    cuurent_count = 1
+    for i in len(history):           # we want to compare current and previous elemnts, so indexing is better
+        if history[i] == history[i-1]:
+            current_count += 1
+        else:
+            if current_count == 1:
+                compressed_history += history[i]
+                current_count = 1
+            else:
+                compressed_history += history[i-1]
+                compressed_history += str(current_count)
+                compressed_history += history[i]
+                current_count = 1
+
+    return compressed_history
 
 def decode(compressed_history):
     """Takes as input a compressed representation of a player's history and returns
