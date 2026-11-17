@@ -52,6 +52,7 @@ def compute_winner(history_A, history_B):
 def encode(history):
     """Takes as input a string representing the history of a player and returns its
     compressed representation."""
+
     compressed_history = ""
     compressed_history += history[0] # this makes the loop simpler
     cuurent_count = 1
@@ -71,8 +72,13 @@ def encode(history):
     return compressed_history
 
 def decode(compressed_history):
-    """Takes as input a compressed representation of a player's history and returns
-    an uncompressed representation of the same history."""
+    decoded_history = ""
+    for i in range(0, len(compressed_history)):
+        if compressed_history[i] in ["H", "T"] and compressed_history[i+1] in ["H", "T"]:
+            decoded_history += compressed_history[i]
+        else:
+            decoded_history += compressed_history[i] * int(compressed_history[i+1])
+        
     raise NotImplementedError("Implement this function")
 
 def compute_winner_compressed(compressed_history_A, compressed_history_B):
