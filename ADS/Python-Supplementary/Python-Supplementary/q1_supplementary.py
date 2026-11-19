@@ -5,7 +5,7 @@
 def compute_winner(history_A, history_B):
     """Computes the winner of the coin flipping game given the histories
     of players A and B.
-    Returns "A" if player A wins, "B" if player B wins, and "D" if it is a draw.
+    Returns "A" if player A  wins, "B" if player B wins, and "D" if it is a draw.
     """
     raise NotImplementedError("Implement this function")
 
