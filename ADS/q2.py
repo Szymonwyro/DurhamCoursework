@@ -2,7 +2,7 @@ def fetch(linked_grid, i, j):
     """Returns the data at position (i, j) in the linked grid; i.e. the data held in the ith row and the jth column.
     Note: i and j are 1-indexed. fetch(linked_grid, 1, 1) returns the data in the head node.
     """
-    raise NotImplementedError("Implement this function")
+    return linked_grid[i-1][j-1]
 
 
 def equal_values(linked_grid_a, linked_grid_b):
