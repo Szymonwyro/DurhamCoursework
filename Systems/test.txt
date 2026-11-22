@@ -1,0 +1,11 @@
+# --------------------------------------#
+#               First Plans             #
+# --------------------------------------#
+
+# In LMC, we can use modulo division
+# Instead, we will use repeated subtraction and the NEG flag to determine each digit
+# How many repeated sutractions of 100 we can do from a number gives us the 100s digit
+# How many repeated subtractions of 10 we can do from a number gives us the 10s digit
+# The remaining value is the units digit
+
+We can isolate this for each of the 2 integers, run a loop that does this for each one, alternating
