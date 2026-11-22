@@ -9,3 +9,100 @@
 # The remaining value is the units digit
 
 We can isolate this for each of the 2 integers, run a loop that does this for each one, alternating
+
+attempt 1 FOR ONE GIVEN INTEGER 
+
+load the integer value (0-999)
+subtract 100 until NEG flag
+    we could reset PC somehow to count how many times
+subtract 10 until
+final value
+
+notice here we could just keep the counter across each of these becuase we are summing the digits anyway
+so we cna count just: how many subtractions did we do + final leftover value
+
+value SUB count
+OUT value
+reset count
+
+subtract 100 until NEG (+= count)
+subtract 10 until NEG (+= count)
+subtract 1 until NEG (+= count)
+add these (+= count)
+
+value SUB count
+OUT value
+reset count
+
+this loop continues until
+value SUB 1 raises NEG
+
+OPTIMISATION CONSIDERATIONS:
+    once SUB 100 raises NEG, we dont need to keep doing it
+
+
+ATTEMPT 2 FOR 2 INPUTS
+
+IN
+STO A
+IN
+STO B
+
+---------- TOP ----------
+LDA A
+BRZ swap A and B
+LDA zero
+STO count
+LDA A
+STO elsewhere as WorkingValue
+
+---------- DIGIT SUM ----------
+
+    SUB 100
+    not NEG
+        STO as WorkingValue
+        LDA count
+        count ADD 1
+        STO as count
+        LDA WorkingValue
+        back to SUB 100
+    NEG
+        LDA WorkingValue
+        continue
+    
+    SUB 10
+    not NEG
+        STO as WorkingValue
+        LDA count
+        count ADD 1
+        STO as count
+        LDA WorkingValue
+        back to SUB 10
+    NEG
+        LDA WorkingValue
+        continue
+
+    (FOR UNITS)
+    ADD count
+    STO as count
+
+    LDA A 
+    SUB count
+    STO A 
+    OUT
+
+---------- SWAP ----------
+LDA A
+STO temp
+LDA B 
+STO A 
+LDA temp
+STO B
+
+---------- STOP WITH BOTH ZERO ----------
+LDA A
+ADD B
+BRZ HLT
+BR top
+
+HLT
