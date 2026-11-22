@@ -1,0 +1,36 @@
+IN 
+STO A 
+IN 
+STO B 
+
+TOP LDA A 
+    BRZ SWAP
+    LDA zero
+    STO count
+    LDA A
+    STO working 
+
+HLOOP   LDA working
+        SUB hundred
+        BRP HOK
+        BR TLOOP
+HOK STO working
+    LDA count
+    ADD one
+    STO count
+    BR HLOOP
+
+TLOOP   LDA working
+        SUB ten
+        BRP TOK
+        BR UNITS
+TOK STO working
+    LDA count
+    ADD one
+    STO count
+    BR TLOOP
+
+UNITS   LDA working
+        ADD count
+        STO count
+
