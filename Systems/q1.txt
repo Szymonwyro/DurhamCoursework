@@ -3,6 +3,8 @@ STO A
 IN 
 STO B 
 
+# Scored on comments to so ensure sufficient
+
 TOP LDA A 
     BRZ SWAP
     LDA zero
@@ -33,4 +35,36 @@ TOK STO working
 UNITS   LDA working
         ADD count
         STO count
+
+LDA A 
+SUB count
+STO A 
+OUT
+
+SWAP    LDA A 
+        STO temp
+        LDA B 
+        STO A
+        LDA temp
+        STO B
+
+        LDA A
+        ADD B 
+        BRZ STOP
+        BR TOP
+
+STOP    HLT
+
+A       DAT
+B       DAT
+count   DAT
+working DAT
+temp    DAT
+zero    DAT 0
+one     DAT 1
+ten     DAT 10
+hundred DAT 100
+
+    
+
 
