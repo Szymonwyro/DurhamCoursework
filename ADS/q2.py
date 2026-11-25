@@ -1,4 +1,4 @@
-from q2_supplementary.py import Node, LinkedGrid
+from q2_supplementary import Node, LinkedGrid
 
 def fetch(linked_grid, i, j):
     """Returns the data at position (i, j) in the linked grid; i.e. the data held in the ith row and the jth column.
@@ -81,28 +81,50 @@ def extract_row(linked_grid,i):
             above = above.nextY
             below = below.nextY
 
+        extracted_start
+        node = extracted_start
+        while node is not None:
+            node.nextY = None
+            node = node.nextX
+
         while above is not None:
             above.nextY = below
             above = above.nextX
             if below is not None:
                 below = below.nextX
 
-        extracted_start = above.nextY
-        node = extracted_start
-        while node is not None:
-            node.nextY = None
-            node = node.nextX
 
-    return LinkedGrid(extracted_start, linked_grid.sizeX, 1)
-        
-
-            
+    return LinkedGrid(extracted_start, linked_grid.sizeX, 1)         
 
 def extract_column(linked_grid,j):
-    """Removes column j from the input linked grid and
-    returns a new linked grid consisting of that column j
-    """
-    raise NotImplementedError("Implement this function")
+    if j == 1:
+        extracted_start = linked_grid.head
+        linked_grid.head = linked_grid.head.next
+        new_node = extracted_start
+        while new_node is not None:
+            new_node.nextX = None
+            new_node = new_node.nextY
+    else:
+        # we need to take the nodes in the column to the left of the extracted one and connect them to the one to its right
+        left = linked_grid.head
+        right = left.nextX.nextX
+        for i in range(j-2):
+            left = left.nextX
+            right = right.nextX
+
+        extracted_start = left.nextX
+        node = extracted_start
+        while node is not None:
+            node.nextX = None
+            node = node.nextY
+
+        while left is not None:
+            left.nextX = right
+            left = left.nextY
+            if right is not None:
+                right = right.nextY
+
+    return LinkedGrid(extracted_start, 1, linked_grid.sizeY)
     
 def transpose(linked_grid):
     """Returns the transpose of the input linked grid.
